@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo_deployment
+  labels:
+    app: yolo_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo_app
+  template:
+    metadata:
+      labels:
+        app: yolo_app 
+    spec:
+      containers:
+        - name: yolo_app
+           image: gcr.io/yolo-357114
+      ports: 
+        - containerPort: 3000
+      volumeMounts:
+        - mountPath: /yolo_app
+          name: yolo_disk
+      volumes:
+        - name: yolo_disk
+          # This GCE PD must already exist.
+          gcePersistentDisk:
+            pdName: yolo_disk
+            fsType: ext4
+      envFrom:
+      - secretRef:
+          name: yolo_secret

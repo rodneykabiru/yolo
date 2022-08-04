@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo_service
+spec:
+  selector:
+    app: yolo_app 
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 5000 # External
+    targetPort: 3000 # Container
+    nodePort: 31110 

@@ -1,33 +1,52 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-  name: yolo_deployment
+  name: "yolo-client-deploy"
+  namespace: "default"
   labels:
-    app: yolo_app
+    app: "yolo-client-deploy"
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: yolo_app
+      app: "yolo-client-deploy"
   template:
     metadata:
       labels:
-        app: yolo_app 
+        app: "yolo-client-deploy"
     spec:
       containers:
-        - name: yolo_app
-           image: gcr.io/yolo-357114
-      ports: 
-        - containerPort: 3000
-      volumeMounts:
-        - mountPath: /yolo_app
-          name: yolo_disk
-      volumes:
-        - name: yolo_disk
-          # This GCE PD must already exist.
-          gcePersistentDisk:
-            pdName: yolo_disk
-            fsType: ext4
-      envFrom:
-      - secretRef:
-          name: yolo_secret
+      - name: "yolo-client-server-sha256-1"
+        image: "gcr.io/yolo-357114/yolo_client-server@sha256:1064688bcf803e829036155c89a909928fc2afa1d8961a752cbe6d4176838c70"
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This GCE PD must already exist.
+    gcePersistentDisk:
+      pdName: my-data-disk
+      fsType: ext4
+  - secretRef:
+    name: yolo-secret
+  restartPolicy: Never
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "yolo-client-deploy-hpa-q2za"
+  namespace: "default"
+  labels:
+    app: "yolo-client-deploy"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "yolo-client-deploy"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80

@@ -34,6 +34,9 @@ This majorly set up for multiple containers to be able to communicate to each ot
 # Docker-compose Volume and Usage Defination
 This is meant to allocate storage of data in the containers. The advantage of it is that container can be deleted but the data may still remain and be used in future containers.
 
+# Playbook
+This file contains the script for running set of tasks by the control node to the host servers.
+
 # Git Workflow Used
 
 git clone (url repo)
@@ -44,5 +47,28 @@ git commit -m "decription in each development"
 
 git push 
 
-# Playbook
-This file contains the script for running set of tasks by the control node to the host servers.
+# Google Cloud SDK Shell workflow used
+
+gcloud auth login - To get authetication to the google console.
+
+gcloud config set project (project-ID)
+
+docker tag SOURCE_REPO:TAG GCLOUD_REPO:TAG
+
+docker push G-CLOUD_IMAGE
+
+minikube start
+
+kubectl apply -f deployment.yml
+
+kubectl apply -f service.yml
+
+kubectl apply -f secrets.yml
+
+# Looking at the Pods created
+
+kubectl get pods
+
+# Creating Persistent Disk
+
+gcloud compute disks create --size=500GB --zone=ZONE_HERE DISK_NAME_HERE

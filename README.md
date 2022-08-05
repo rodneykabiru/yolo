@@ -1,4 +1,4 @@
-# Yolomy
+# Deployment of Yolo-app to GKE
 <!-- Introduction of Author -->
 Author of this repository is <strong>Charles Muli</strong>. He is currently a student at Moringa School and an employee of Safaricom PLC.
 
@@ -6,19 +6,19 @@ Author of this repository is <strong>Charles Muli</strong>. He is currently a st
 
 ## Project Description
 
-The application is an e-commerce website that doubles-up as a dashboard where you can load retail products on to the site.
+To implement the orchestration concepts by hosting Yolomy web app project on GKE instances. 
 
-This project is meant to implement use of containerization using docker files and docker-compose YAML file to orchestrate the running of the various containers.
+## Live URL
 
-## Setup Instruction
-
-To successfully run this application you'll need to install node js, MongoBD and install npm dependancy from the backend.
+The link to the live deployment to GKE is http://34.168.12.213:5000/
 
 
 ## Technologies Used
 
-The program will basically use JavaScript as the programming language and bootstrap as the style language.
-The aspect of containerization docker has been used to make it possible.
+Installed kubernetes tools such minikube, kubectl tools to facilitate deployment of containers to kubernetes.
+Installed docker.
+Google CLoud SDK Shell was used to push gcloud and kubectl commands.
+
 
 ## Contact Information
 

@@ -10,7 +10,7 @@ To implement the orchestration concepts by hosting Yolomy web app project on GKE
 
 ## Live URL
 
-The link to the live deployment to GKE is <a target="_blank" http://34.168.12.213:5000/>
+The link to the live deployment to GKE is <a href= "http://34.168.12.213:5000/" target="_blank">
 
 
 ## Technologies Used

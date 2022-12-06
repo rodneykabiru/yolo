@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  client:
+    build: ./client/
+    image: rodney080/client:1.0
+    container_name: yolomy_client
+    ports:
+      - '3000:3000'
+    networks:
+      - yolo_network
+    depends_on:
+     - backend
+
+  backend:
+    build: ./backend/
+    image: rodney080/backend:1.0
+    container_name: yolomy_backend
+    ports:
+      - '5000:5000'
+    networks:
+      - yolo_network
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4.4.7
+    container_name: mongo_db
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INTDB_ROOT_USERNAME: rodney
+      MONGO_INTDB_ROOT_PASSWORD: rodney123
+volumes:
+  database:
+
+networks:
+  yolo_network:
+    driver: bridge

@@ -7,7 +7,10 @@ packages one can install them.
 Create a directory
 Define a working directory
 #copy package.json and package-lock.json to the working directory
-install dependencies
+install dependencies and copy your project files into the image
+ Run 'npm run build' install an HTTP server for running the application. use serve, the server that client-app recommends
+ Finally define an entry point
+
 ## Navigate to the Client Folder 
  `cd client`
 

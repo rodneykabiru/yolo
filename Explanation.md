@@ -39,5 +39,5 @@ To view container logs
     ` docker logs <container id> `
 
 # DOCKER HUB
-https://hub.docker.com/r/rodney080/client
-https://hub.docker.com/r/rodney080/backend
+[rodney/client] (https://hub.docker.com/r/rodney080/client)
+[rodney080/backend](https://hub.docker.com/r/rodney080/backend)

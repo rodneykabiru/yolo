@@ -38,4 +38,6 @@ If you need to go inside a container run the following command
 To view container logs
     ` docker logs <container id> `
 
-
+# DOCKER HUB
+https://hub.docker.com/r/rodney080/client
+https://hub.docker.com/r/rodney080/backend

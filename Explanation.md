@@ -1,29 +1,41 @@
 # Fork the repo and clone into the machine
 fork the repo to your github account and Git clone to your machine.
 # Docker Files Creation
-## Image 
-Alpine is great since it works decently creating compact and efficient images though they might not have alot 
-packages one can install them.
-Create a directory
-Define a working directory
-#copy package.json and package-lock.json to the working directory
-install dependencies and copy your project files into the image
- Run 'npm run build' install an HTTP server for running the application. use serve, the server that client-app recommends
- Finally define an entry point
+# Explanation
+## Base image used
 
-## Navigate to the Client Folder 
- `cd client`
+` FROM node:16.17.1-alpine3.16 ` - Alpine image is fast and very small in size
 
-## Run the folllowing command to install the dependencies 
- `npm install`
+## Dockerfile directives
 
-## Run the folllowing to start the app
- `npm start`
+` FROM node:16.17.1-alpine3.16` -  Alpine base image to build from
 
-## Open a new terminal and run the same commands in the backend folder
- `cd ../backend`
+` WORKDIR /usr/src/(client | backend) ` - A working directory to hold application code
 
- `npm install`
+` COPY package*.json ./ ` - Copy ` package.json ` and ` package-lock.json ` files containing project dependencies to the working directory inside the docker image
 
- `npm start`
+` RUN npm install ` - Install project dependencies
+
+` COPY . . ` -  Copy project source code to the working directory inside the docker image
+
+` RUN npm run build ` - Compile project for production
+
+` EXPOSE 3000 ` - Expose port 3000 for client and 5000 for backend
+
+` CMD ["node", "server.js"] ` or ` CMD [ "serve", "-s", "build", "-l", "3000" ] ` - Start the server
+
+# Instructions
+
+1. Clone this repository ` https://github.com/rodneykabiru/yolo `
+2. Change in to yolo directory ` cd yolo `
+3. Run docker compose ` docker-compose up --build `
+    - You can pass ` -d ` to the above command if you want to run in detached mode
+
+If you need to go inside a container run the following command
+    ` docker exec -it <container id> /bin/bash `
+    - Run ` docker ps ` to get the container ID
+
+To view container logs
+    ` docker logs <container id> `
+
 

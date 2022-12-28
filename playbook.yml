@@ -1,0 +1,49 @@
+---
+- name: yolo playbook
+  hosts: all
+  remote_user: rodney080
+  become: true
+  tasks:
+    - name: Install git
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+    - name: Clone repo
+      git:
+        repo: https://github.com/rodneykabiru/yolo.git
+        dest: /home/brathe/yolo/
+    - name: update_cache
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+        update_cache: yes
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+
+        state: latest
+        update_cache: true
+    - name: Start Application
+      shell : docker-compose -f /home/brathe/yolo/docker-compose.yml -d
+      args:
+        executable: /bin/bash
+      

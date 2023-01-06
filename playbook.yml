@@ -12,7 +12,7 @@
     - name: Clone repo
       git:
         repo: https://github.com/rodneykabiru/yolo.git
-        dest: ~/yolo
+        dest: /home/user/yolo
     - name: update_cache
       apt:
         name:

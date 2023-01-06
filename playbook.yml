@@ -12,7 +12,7 @@
     - name: Clone repo
       git:
         repo: https://github.com/rodneykabiru/yolo.git
-        dest: /home/brathe/yolo/
+        dest: ~/yolo
     - name: update_cache
       apt:
         name:
@@ -29,7 +29,7 @@
 
     - name: Add Docker Repository
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
         state: present
 
     - name: Update apt and install docker-ce
@@ -42,8 +42,8 @@
 
         state: latest
         update_cache: true
-    - name: Start Application
-      shell : docker-compose -f /home/brathe/yolo/docker-compose.yml -d
+    - name: Start application
+      shell: docker-compose -f /home/user/yolo/docker-compose.yml up -d
       args:
         executable: /bin/bash
       

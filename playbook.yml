@@ -39,9 +39,9 @@
           - docker-ce-cli
           - containerd.io
           - docker-compose
-
         state: latest
         update_cache: true
+
     - name: Start application
       shell: docker-compose -f /home/user/yolo/docker-compose.yml up -d
       args:

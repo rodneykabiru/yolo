@@ -1,0 +1,55 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "yoloappk"
+  namespace: "default"
+  labels:
+    app: "yoloappk"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "yoloappk"
+  template:
+    metadata:
+      labels:
+        app: "yoloappk"
+    spec:
+      containers:
+      - name: "yolo-1"
+        image: "gcr.io/eloquent-life-374416/github.com/rodneykabiru/yolo:$SHORT_SHA"
+      - name: "yolo-2"
+        image: "gcr.io/eloquent-life-374416/github.com/rodneykabiru/yolo:$SHORT_SHA"
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This GCE PD must already exist.
+    gcePersistentDisk:
+      pdName: my-data-disk
+      fsType: ext4
+  restartPolicy: Never
+---
+apiVersion: "autoscaling/v2"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "yoloappk-hpa-q8l1"
+  namespace: "default"
+  labels:
+    app: "yoloappk"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "yoloappk"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      target:
+        type: "Utilization"
+        averageUtilization: 80
